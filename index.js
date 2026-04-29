@@ -4,28 +4,34 @@ const cors = require('cors');
 
 const app = express();
 
-// Habilitar CORS para que tu frontend local pueda hablar con Render
+// 1. Habilitar CORS para que tu frontend local (aunque esté bloqueado) pueda hablar con Render
 app.use(cors());
 
-// Proxy para la API de IA (Chat, modelos, etc)
+// 2. Ruta de prueba (opcional) - Si entras a https://onrender.com verás este mensaje
+app.get('/', (req, res) => {
+    res.send('Proxy de Budsin-Puter funcionando correctamente.');
+});
+
+// 3. Proxy para la IA (Chat/Modelos)
+// Este redirige a la interfaz compatible con OpenAI de Puter
 app.use('/puterai', createProxyMiddleware({
     target: 'https://puter.com',
     changeOrigin: true,
-    pathRewrite: { '^/puterai': '/puterai' },
-    onProxyReq: (proxyReq, req, res) => {
-        // Esto asegura que Puter crea que la petición viene de un sitio seguro
+    pathRewrite: { '^/puterai': '/puterai/openai' },
+    onProxyReq: (proxyReq) => {
+        // Engañamos a Puter para que crea que la petición viene de su propio dominio
         proxyReq.setHeader('Origin', 'https://puter.com');
     }
 }));
 
-// Proxy para el resto de servicios de Puter
+// 4. Proxy para la API general (Base de datos, Key-Value, etc.)
 app.use('/api', createProxyMiddleware({
     target: 'https://puter.com',
     changeOrigin: true,
     pathRewrite: { '^/api': '' },
 }));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
-    console.log(`Proxy funcionando en el puerto ${PORT}`);
+    console.log(`Proxy corriendo en puerto ${PORT}`);
 });
