@@ -30,7 +30,7 @@ app.use('/puterai', createProxyMiddleware({
     onProxyReq: (proxyReq) => {
         proxyReq.setHeader('Origin', 'https://js.puter.com');
         proxyReq.setHeader('Referer', 'https://js.puter.com/');
-        proxyReq.setHeader('Cookie', 'puter_auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoic2Vzc2lvbiIsInZlcnNpb24iOiIwLjAuMCIsInV1aWQiOiI5MTYzN2JhZi03M2U5LTQ5OGUtOGI0NC03Yzc3OGYzOTdiMmQiLCJ1c2VyX3VpZCI6ImFhODY2MTlkLWQwZDUtNDZiMC1iODE0LWI1NGUzMDc2NjJhOCIsImlhdCI6MTc3NzQ3NjY3NX0.BpCsPNolKzvES2TXaueO24DKu6O1cHt64wf-2ECIEHc');
+        proxyReq.setHeader('Cookie', 'puter_auth_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoic2Vzc2lvbiIsInZlcnNpb24iOiIwLjAuMCIsInV1aWQiOiI1MTljNWY2MC1kNzlmLTQ3ODktYjBjYy02Yzg3MDNlZTJmZGYiLCJ1c2VyX3VpZCI6Ijk0M2YxNDgyLThlNzktNGNkOS1hNDkxLWU5NjY2ODcwZGQ3YyIsImlhdCI6MTc3NzU2NjM2MX0.EGo79DKbAtf77BF7iZTW9oi_SYmTR0KRBPBmwvMQE-Y');
     },
     onProxyRes: (proxyRes) => {
         // Sobreescribir los headers CORS que devuelve Puter
